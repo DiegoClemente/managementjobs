@@ -17,9 +17,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class SecurityFilter extends OncePerRequestFilter {
+public class SecurityCompanyFilter extends OncePerRequestFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(SecurityCompanyFilter.class);
 
     @Autowired
     private JWTProvider jwtProvider;
@@ -32,7 +32,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         logger.info("Received request to {}", request.getRequestURI());
 
-        //SecurityContextHolder.getContext().setAuthentication(null);
         String header = request.getHeader("Authorization");
 
         if (request.getRequestURI().startsWith("/company")) {

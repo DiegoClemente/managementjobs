@@ -1,6 +1,7 @@
 package br.com.rocketseat.managementjobs.useCases;
 
 import br.com.rocketseat.managementjobs.dto.ProfileCandidateResponseDTO;
+import br.com.rocketseat.managementjobs.exceptions.UserNotFound;
 import br.com.rocketseat.managementjobs.repository.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +17,7 @@ public class ProfileCandidateUseCase {
 
     public ProfileCandidateResponseDTO execute(UUID idCandidate) {
         var candidate = this.candidateRepository.findById(idCandidate)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFound("User not found"));
 
         var candidateDTO = ProfileCandidateResponseDTO.builder()
                 .description(candidate.getDescription())
