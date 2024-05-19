@@ -5,8 +5,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +17,6 @@ import java.io.IOException;
 @Component
 public class SecurityCompanyFilter extends OncePerRequestFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityCompanyFilter.class);
 
     @Autowired
     private JWTProvider jwtProvider;
@@ -30,20 +27,20 @@ public class SecurityCompanyFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        logger.info("Received request to {}", request.getRequestURI());
+
 
         String header = request.getHeader("Authorization");
 
         if (request.getRequestURI().startsWith("/company")) {
-            logger.info("Received request to /company endpoint");
+
 
             if (header != null) {
-                logger.info("Authorization header present");
+
 
                 var token = this.jwtProvider.validateToken(header);
 
                 if (token == null) {
-                    logger.warn("Invalid token detected!");
+
 
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     return;
@@ -51,17 +48,14 @@ public class SecurityCompanyFilter extends OncePerRequestFilter {
 
                 var roles = token.getClaim("roles").asList(Object.class);
 
-                logger.info("User roles: = " + roles);
+
 
                 var grants = roles.stream()
                                 .map(role -> new SimpleGrantedAuthority("ROLE_"
                                         + role.toString().toUpperCase()))
                                         .toList();
 
-                logger.info("Grants = " + grants);
 
-                String companyId = token.getSubject();
-                logger.info("Company ID from token: {}", companyId);
 
                 request.setAttribute("company_id", token.getSubject());
 
@@ -77,7 +71,5 @@ public class SecurityCompanyFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-        logger.info("request = " + request);
-        logger.info("response = " + response);
     }
 }
