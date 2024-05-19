@@ -54,15 +54,20 @@
 <h2 id="usage">💻 Usage</h2>
 <p>Once the application is running, you can access it at <code>http://localhost:8080</code>. Use the following endpoints to manage jobs and credentials:</p>
 <ul>
-        <li><code>/api/jobs</code> - Manage job listings</li>
-        <li><code>/api/users</code> - Manage user credentials</li>
+        <li>POST: <code>http://localhost:8080/company/job/</code> - Manage job listings</li>
+        <li>POST: <code>http://localhost:8080/candidate/auth</code> - Manage user credentials</li>
 </ul>
 
 <h2 id="testing">🧪 Testing</h2>
 <p>This project uses JUnit for unit tests and JaCoCo for code coverage. To run tests and view the coverage report:</p>
 <pre><code>mvn test</code></pre>
-<p>Integration with SonarQube for code quality analysis is also included. Ensure SonarQube is running and execute:</p>
-<pre><code>mvn sonar:sonar</code></pre>
+<li>
+        Start SonarQube Docker container:
+        <pre><code>docker run -d --name sonarqube -p 9000:9000 sonarqube</code></pre>
+</li>
+<li>Run SonarQube analysis:
+        <pre><code>mvn clean verify sonar:sonar -Dsonar.projectKey=managementjobs -Dsonar.projectName='managementjobs' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=your_token_generate_on_installation</code></pre>
+</li>
 
 <h2 id="contributing">🤝 Contributing</h2>
 <p>Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are <strong>greatly appreciated</strong>.</p>
