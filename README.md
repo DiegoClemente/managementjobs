@@ -8,6 +8,7 @@
         <li><a href="#installation">Installation</a></li>
         <li><a href="#usage">Usage</a></li>
         <li><a href="#testing">Testing</a></li>
+        <li><a href="#documentation">Documentation</a></li>
         <li><a href="#contributing">Contributing</a></li>
         <li><a href="#license">License</a></li>
 </ul>
@@ -67,6 +68,14 @@
 </li>
 <li>Run SonarQube analysis:
         <pre><code>mvn clean verify sonar:sonar -Dsonar.projectKey=managementjobs -Dsonar.projectName='managementjobs' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=your_token_generate_on_installation</code></pre>
+</li>
+
+<h2 id="documentation">📜 Documentation</h2>
+<p>This project have a documentation using Swagger UI:</p>
+
+<li>
+        Can be access throw the link:
+        <pre><code>https://managementjobs.onrender.com/swagger-ui/index.html#/</code></pre>
 </li>
 
 <h2 id="contributing">🤝 Contributing</h2>
