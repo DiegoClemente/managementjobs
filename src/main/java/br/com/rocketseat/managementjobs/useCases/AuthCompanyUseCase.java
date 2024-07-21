@@ -56,12 +56,14 @@ public class AuthCompanyUseCase {
                 .withClaim("roles", List.of("COMPANY"))
                 .sign(algorithm);
 
-        logger.info("AuthCompanyUseCase: Authentication successful for username {}", authCompanyDTO.getUsername());
+        var roles = List.of("COMPANY");
+
 
 
         return AuthCompanyResponseDTO.builder()
                 .access_token(token)
                 .expires_in(expiresIn.toEpochMilli())
+                .roles(roles)
                 .build();
     }
 }
