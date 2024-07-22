@@ -75,6 +75,7 @@ public class JobController {
                     @Content(schema = @Schema(implementation = JobEntity.class))
             })
     })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> listByCompany(HttpServletRequest request) {
         var companyId = request.getAttribute("company_id");
         var result = this.listAllJobsByCompanyUseCase.execute(UUID.fromString(companyId.toString()));
