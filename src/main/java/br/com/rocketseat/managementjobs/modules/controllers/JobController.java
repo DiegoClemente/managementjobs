@@ -3,6 +3,7 @@ package br.com.rocketseat.managementjobs.modules.controllers;
 import br.com.rocketseat.managementjobs.dto.CreateJobDTO;
 import br.com.rocketseat.managementjobs.modules.jobs.JobEntity;
 import br.com.rocketseat.managementjobs.useCases.CreateJobUseCase;
+import br.com.rocketseat.managementjobs.useCases.ListAllJobsByCompanyUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,6 +27,9 @@ public class JobController {
 
     @Autowired
     private CreateJobUseCase createJobUseCase;
+
+    @Autowired
+    private ListAllJobsByCompanyUseCase listAllJobsByCompanyUseCase;
 
     @PostMapping("/")
     @PreAuthorize("hasRole('COMPANY')")
@@ -60,5 +64,20 @@ public class JobController {
         }
 
 
+    }
+
+    @GetMapping("/")
+    @PreAuthorize("hasRole('COMPANY')")
+    @Tag(name = "Jobs", description = "All jobs")
+    @Operation(summary = "List of all jobs ", description = "This function is responsible for list all jobs registered.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = JobEntity.class))
+            })
+    })
+    public ResponseEntity<Object> listByCompany(HttpServletRequest request) {
+        var companyId = request.getAttribute("company_id");
+        var result = this.listAllJobsByCompanyUseCase.execute(UUID.fromString(companyId.toString()));
+        return ResponseEntity.ok().body(result);
     }
 }
