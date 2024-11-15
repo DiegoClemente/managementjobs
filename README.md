@@ -75,7 +75,7 @@
 
 <li>
         Can be access throw the link:
-        <pre><code>https://managementjobs.onrender.com/swagger-ui/index.html#/</code></pre>
+        <pre><code>http://localhost:8080/swagger-ui/index.html#/</code></pre>
 </li>
 
 <h2 id="contributing">🤝 Contributing</h2>
